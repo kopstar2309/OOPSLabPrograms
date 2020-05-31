@@ -7,90 +7,122 @@
   oriented programming by inheriting the constructors and methods of the base class.
 */
 
+package com.company;
+
 import java.util.Scanner;
 
-class circle{
-    double radius;
-    String color = "default";
-    circle(){}
-    circle(int radius){
-        this.radius = radius;
-    }
-    circle(int radius, String color){
-        this.radius = radius;
-        this.color = color;
-    }
-    public double getRadius() {
-        return radius;
+class Circle{
+    protected double radius;
+
+    protected String color;
+
+    Circle(){
+        this.radius=1.0;
+        this.color="red";
+
     }
 
-    public double getArea() {
-        return 3.1415*radius*radius;
+    Circle(double radius){
+        this.radius=radius;
+        this.color="red";
     }
 
-    public String getColor() {
-        return color;
+    Circle(double radius,String color){
+        this.radius=radius;
+        this.color=color;
+    }
+
+    protected double getRadius(){
+        return this.radius;
+    }
+
+    protected double getArea(){
+        return Math.PI*radius*radius;
+    }
+
+    String getColor(){
+        return this.color;
     }
 }
 
-class cylinder extends  circle{
-    private double height;
-    cylinder(){
+class Cylinder extends Circle{
+    protected double height;
+
+    Cylinder(){
         super();
-        this.height = 1.0;
-    }
-    cylinder(double height, double radius){
-        this.height = height;
-        this.radius = radius;
-    }
-    cylinder(double height, double radius, String color){
-        this.height = height;
-        this.radius = radius;
-        this.color = color;
-    }
-    public double getHeight() {
-        return height;
+        this.height=1.0;
+
     }
 
-    public double getArea(){
-        return 2*3.1415*radius*height;
+    Cylinder(double height,double radius){
+        super(radius);
+        this.height=height;
     }
-    public double getVolume(){
-        return 3.1415*radius*radius*height;
+
+    Cylinder(double height,double radius,String color){
+        super(radius,color);
+        this.height=height;
     }
+
+    protected double getHeight(){
+        return this.height;
+    }
+
+    double getVolume(){
+        return this.height*super.getArea();
+    }
+
     @Override
-    public String getColor() {
-        return super.getColor();
+    protected double getArea(){
+        return 2*super.getArea()+2*Math.PI*this.radius*this.height;
+    }
+
+    void checkSimilar(Cylinder cylinder){
+        if(this.getArea() == cylinder.getArea() && this.getVolume() == cylinder.getVolume() && this.color.equalsIgnoreCase(cylinder.color))
+            System.out.println("\nThe two cylinders are similar\n");
+        else
+            System.out.println("\nThe two cylinders are not similar\n");
     }
 }
-public class prgm3 {
-    public static void main(String args[]){
-        Scanner in = new Scanner(System.in);
-        String cont = "yes";
-        while(!cont.toLowerCase().equals("no") && !cont.equals("n")) {
-            double radius1 = in.nextDouble();
-            double height1 = in.nextDouble();
-            double radius2 = in.nextDouble();
-            double height2 = in.nextDouble();
-            cylinder c1 = new cylinder(height1, radius1);
-            cylinder c2 = new cylinder(height2, radius2);
-            
-            System.out.println("Do you want to add colors to your cylinders??");
-            String colorch = in.next();
-            if (!colorch.toLowerCase().equals("no") && !colorch.toLowerCase().equals("n")) {
-                String color1 = in.next();
-                String color2 = in.next();
-                c1 = new cylinder(height1, radius1, color1);
-                c2 = new cylinder(height2, radius2, color2);
-            }
-            if (c1.getColor().equals(c2.getColor()) && c1.getHeight() == c2.getHeight() &&
-                    c1.getRadius() == c2.getRadius()) {
-                System.out.println("The Cylinders are exactly the same!");
-            } else {
-                System.out.println("The Cylinders are different!");
-            }
-            System.out.println("Continue? ");
-            cont = in.next();
+public class Main {
+
+    public static void main(String[] args) {
+	// write your code here
+        Cylinder c1,c2;
+        String color;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter the height and radius of first cylinder");
+        Double height=scanner.nextDouble(),radius=scanner.nextDouble();
+        boolean hasColor;
+        System.out.println("\nDo you want to give color? Y/N ");
+        hasColor= (scanner.next().equalsIgnoreCase("Y")) ? true : false;
+        if (hasColor){
+            System.out.print("\nEnter the color:");
+            color=scanner.next();
+            c1 = new Cylinder(height,radius,color);
         }
+        else
+            c1 = new Cylinder(height,radius);
+
+        System.out.println("\nEnter the height  and radius of second cylinder");
+        height=scanner.nextDouble();
+        radius=scanner.nextDouble();
+
+        System.out.println("\nDo you want to give color? Y/N ");
+        hasColor= (scanner.next().equalsIgnoreCase("Y")) ? true : false;
+        if (hasColor){
+            System.out.print("\nEnter the color:");
+            color=scanner.next();
+            c2 = new Cylinder(height,radius,color);
+        }
+        else
+            c2 = new Cylinder(height,radius);
+
+        System.out.println(c1.getColor());
+        System.out.println(c2.getColor());
+
+        c1.checkSimilar(c2);
     }
+
+
 }
