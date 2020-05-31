@@ -6,56 +6,69 @@ respectively, by passing object as parameter and display result using method dis
 of the complex number using parameterized constructor. Also demonstrate overloading constructors and methods.
 */
 
-package prgm1;
-class complex{
-	int real;
-	int img;
-	complex() {}
-	complex(int r, int i) {
-		this.real = r;
-		this.img = i;
-	}
-	
-	void add(complex a) {
-		this.img  += a.img;
-		this.real += a.real;
-	}
-	
-	void sub(complex a) {
-		this.img  -= a.img;
-		this.real -= a.real;
-	}
-	
-	complex add(complex a, complex b) {
-		complex x = new complex();
-		x.real = a.real + b.real;
-		x.img = a.img + b.img;
-		return x;
-	}
+package com.company;
 
-	complex sub(complex a, complex b) {
-		complex x = new complex();
-		x.real = a.real - b.real;
-		x.img = a.img - b.img;
-		return x;
-	}
-	void display() {
-		System.out.print("The imaginary number is "+this.real);
-		if(this.img < 0) {
-			System.out.println("" + this.img+"i.");
-		} else {
-			System.out.println("+" + this.img + "i.");
-		}
-	}
+import java.util.Scanner;
+
+class Complex {
+    private int real,imag;
+
+    Complex(){
+
+    }
+
+    Complex(int real,int imag){
+        this.real=real;
+        this.imag=imag;
+    }
+
+    void add_complex(Complex c1,Complex c2){
+        this.real=c1.real+c2.real;
+        this.imag=c1.imag+c2.imag;
+    }
+
+    void display(){
+        if(this.imag >= 0)
+            System.out.println(this.real + " + " +this.imag + "i");
+        else
+            System.out.println(this.real + " " +this.imag + "i");
+    }
+
+    void sub_complex(Complex c1,Complex c2){
+        this.real=c1.real-c2.real;
+        this.imag=c1.imag-c2.imag;
+    }
 }
 
-public class prgm1 {
-	public static void main(String[] args) {
-		complex a = new complex(3, 4);
-		complex b = new complex(1, 2);
-//		b.add(a);
-		b.display();
-		b.sub(a);
-		b.display();
-	}
+
+public class Main {
+
+    public static void main(String[] args) {
+        // write your code here
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the real and imaginary parts of first and second number respectively:");
+
+        //int r1 = scanner.nextInt(),co1=scanner.nextInt(),r2=scanner.nextInt(),co2=scanner.nextInt();
+
+        Complex c1=new Complex(scanner.nextInt(),scanner.nextInt());
+        Complex c2=new Complex(scanner.nextInt(),scanner.nextInt());
+        Complex c3 = new Complex();
+        Complex c4 = new Complex();
+
+
+        System.out.println("The Given numbers are:");
+        c1.display();
+        c2.display();
+
+
+        c3.add_complex(c1,c2);
+        System.out.print("The Sum is as follows:");
+        c3.display();
+
+        c4.sub_complex(c1,c2);
+        System.out.print("The Difference is as follows:");
+        c4.display();
+
+    }
 }
