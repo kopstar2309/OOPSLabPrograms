@@ -6,135 +6,137 @@
  demonstrate passing of object as a parameter to the constructor.
 */
 
-import java.util.Scanner;
+import java.util.*;
 
-import static java.lang.Integer.parseInt;
-
-class Address {
-    public int streetNum;
-    public String city,state,country;
-
-    Address() {
-
-    }
-
-    Address(Address address){
-        this.streetNum = address.streetNum;
-        this.city = address.city;
-        this.state = address.state;
-        this.country = address.country;
-    }
-
+class address{
+      int street_no;
+      String city,state,country;
+      address(int a,String b,String c,String d){
+            street_no=a;
+            city=b;
+            state=c;
+            country=d;
+      }
 }
 
-class Student {
-    public String USN,name;
-    Address address ;
-
-    Student(String USN,String name,Address address){
-        this.USN = USN;
-        this.name = name;
-        this.address = new Address(address);
-    }
+class student{
+      String usn,name;
+      address a;
+      student(String x,String b,address c){
+            a=c;
+            usn=x;
+            name=b;
+      }
 }
 
-class College {
-    public String name;
-    Address address;
-
-    College(String name,Address address) {
-        this.name = name;
-        this.address = new Address(address);
-    }
+class college{
+      String name;
+      address a;
+      college(String x,address y){
+            a=y;
+            name=x;
+      }
 }
 
-class Employee {
-    public String empId,name;
-    Address address;
-
-    Employee(String empId,String name,Address address){
-        this.empId = empId;
-        this.name = name;
-        this.address = new Address(address);
-    }
+class employee{
+      String emp_id,emp_name;
+      address a;
+      employee(String x,String y,address z){
+            emp_id=x;
+            emp_name=y;
+            a=z;
+      }
 }
 
-
-public class StudentCollegeEmployee {
-
-    public static void main(String[] a){
-
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the value of n:");
-        int n=parseInt(scanner.nextLine());
-
-        Student  students[]  = new Student[n];
-        College[]  colleges  = new College[n];
-        Employee[] employees = new Employee[n];
-
-        StudentCollegeEmployee studentCollegeEmployee = new StudentCollegeEmployee();
-
-        String name,USN,empId;
-        Address address = new Address();
-
-        for (int i = 0; i < n; i++) {
-            System.out.println("Enter the USN and Name of Student-" + (i+1) + " with his/her address in the format: street-num city state country:");
-            USN = scanner.nextLine();
-            name = scanner.nextLine();
-            studentCollegeEmployee.getAddr(address);
-
-            students[i] = new Student(name,USN,address);
-
-            System.out.print("Enter Name of College-" + (i+1) + " with address in the format: street-num city state country:");
-            name = scanner.nextLine();
-            studentCollegeEmployee.getAddr(address);
-
-            colleges[i] = new College(name,address);
-
-            System.out.print("Enter Employee ID and Name of Employee-" + (i+1) + " with his/her address in the format: street-num city state country:");
-
-            empId = scanner.nextLine();
-            name = scanner.nextLine();
-            studentCollegeEmployee.getAddr(address);
-
-            employees[i] = new Employee(empId,name,address);
-
-        }
-
-
-
-        System.out.println("Student addresses are:");
-
-        for (int i = 0; i < n ; i++) {
-            System.out.print("Student-" + (i+1) +":");
-            studentCollegeEmployee.printAddr(students[i].address);
-        }
-
-        System.out.println("College addresses are:");
-
-        for (int i = 0; i < n ; i++) {
-            System.out.print("College-" + (i+1) +":");
-            studentCollegeEmployee.printAddr(colleges[i].address);
-        }
-
-        System.out.println("Employee addresses are:");
-
-        for (int i = 0; i < n ; i++) {
-            System.out.print("Employee-" + (i+1) +":");
-            studentCollegeEmployee.printAddr(employees[i].address);
-        }
-    }
-
-    public void printAddr(Address address){
-        System.out.println(address.streetNum + ", " + address.city + ", " + address.state + ", " + address.country+ ".");
-    }
-
-    public void getAddr (Address address){
-        Scanner scanner = new Scanner(System.in);
-        address.streetNum = parseInt(scanner.nextLine());
-        address.city = scanner.nextLine();
-        address.state = scanner.nextLine();
-        address.country = scanner.nextLine();
-    }
+class prog2{
+      public static void main(String[] args){
+            Scanner in=new Scanner(System.in);
+            System.out.println("Enter the number of students/employees/colleges: ");
+            int n=in.nextInt();
+            student[] s=new student[n];
+            employee[] e=new employee[n];
+            college[] c=new college[n];
+            System.out.println("Input Student details:");
+            for(int i=0;i<n;i++){
+                  String name,usn,city,state,country;
+                  int street;
+                  System.out.println("Enter the student name: ");
+                  name=in.next();
+                  System.out.println("Enter the USN: ");
+                  usn = in.next();
+                  System.out.println("Enter the city: ");
+                  city = in.next();
+                  System.out.println("Enter the street: ");
+                  street = in.nextInt();
+                  System.out.println("Enter the state: ");
+                  state = in.next();
+                  System.out.println("Enter the country: ");
+                  country = in.next();
+                  address a=new address(street,city,state,country);
+                  s[i]=new student(usn,name,a);
+            }
+            System.out.println("Input Employee details: ");
+            for (int i = 0; i < n; i++) {
+                  String name, id, city, state, country;
+                  int street;
+                  System.out.println("Enter the employee name: ");
+                  name = in.next();
+                  System.out.println("Enter the employee ID: ");
+                  id = in.next();
+                  System.out.println("Enter the city: ");
+                  city = in.next();
+                  System.out.println("Enter the street: ");
+                  street = in.nextInt();
+                  System.out.println("Enter the state: ");
+                  state = in.next();
+                  System.out.println("Enter the country: ");
+                  country = in.next();
+                  address a = new address(street, city, state, country);
+                  e[i] = new employee(id, name, a);
+            }
+            System.out.println("Input college details: ");
+            for (int i = 0; i < n; i++) {
+                  String name, city, state, country;
+                  int street;
+                  System.out.println("Enter the college name: ");
+                  name = in.next();
+                  System.out.println("Enter the city: ");
+                  city = in.next();
+                  System.out.println("Enter the street: ");
+                  street = in.nextInt();
+                  System.out.println("Enter the state: ");
+                  state = in.next();
+                  System.out.println("Enter the country: ");
+                  country = in.next();
+                  address a = new address(street, city, state, country);
+                  c[i] = new college(name,a);
+            }
+            System.out.print("\n\n\n");
+            System.out.println("Students:");
+            for(int i=0;i<n;i++){
+                  System.out.println("Name: "+s[i].name);
+                  System.out.println("USN: " + s[i].usn);
+                  System.out.println("Street: " + s[i].a.street_no);
+                  System.out.println("City: " + s[i].a.city);
+                  System.out.println("State: " + s[i].a.state);
+                  System.out.println("Country: " + s[i].a.country);
+            }
+            System.out.println("\n\nColleges:");
+            for (int i = 0; i < n; i++) {
+                  System.out.println("Name: " + c[i].name);
+                  System.out.println("Street: " + s[i].a.street_no);
+                  System.out.println("City: " + s[i].a.city);
+                  System.out.println("State: " + s[i].a.state);
+                  System.out.println("Country: " + s[i].a.country);
+            }
+            System.out.println("\n\nEmployees:");
+            for (int i = 0; i < n; i++) {
+                  System.out.println("Name: " + e[i].emp_name);
+                  System.out.println("ID: " + e[i].emp_id);
+                  System.out.println("Street: " + e[i].a.street_no);
+                  System.out.println("City: " + e[i].a.city);
+                  System.out.println("State: " + e[i].a.state);
+                  System.out.println("Country: " + e[i].a.country);
+            }
+      }
 }
